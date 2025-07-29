@@ -9,7 +9,7 @@ import Blog from "./components/Blog";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Pricing from "./components/Pricing";
-
+import Chatbot from "./components/Chatbot";  
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
         <Blog />
         <Pricing />
         <Contact />
+        <Chatbot />
       </main>
       <Footer />
     </div>
