@@ -1,37 +1,81 @@
+/* Root variables for light/dark mode */
+:root {
+  --color-primary: #6366f1; /* Indigo-500 */
+  --color-primary-hover: #4f46e5; /* Indigo-600 */
+  --color-bg: #ffffff;
+  --color-card-bg: #f9fafb;
+  --color-text-primary: #1f2937; /* Gray-800 */
+  --color-text-secondary: #4b5563; /* Gray-600 */
+  --color-shadow-light: rgba(79, 70, 229, 0.15);
+  --color-shadow-dark: rgba(0, 0, 0, 0.05);
+  --color-hover-bg: #ffffff;
+  --color-icon: var(--color-primary);
+  --color-icon-hover: #6366f1;
+  --transition-speed: 0.3s;
+}
+
+body.dark-mode {
+  --color-bg: #121212;
+  --color-card-bg: #1e1e2f;
+  --color-text-primary: #f9fafb;
+  --color-text-secondary: #cbd5e1;
+  --color-shadow-light: rgba(100, 95, 230, 0.3);
+  --color-shadow-dark: rgba(0, 0, 0, 0.7);
+  --color-hover-bg: #2a2a40;
+  --color-icon: #8b8be9;
+  --color-icon-hover: #a3a3f7;
+}
+
+/* Section styling */
 .services-section {
-  background-color: #fff;
+  background-color: var(--color-bg);
   padding: 4rem 1.5rem;
+  transition: background-color 0.4s ease;
 }
 
 .services-content {
   max-width: 1100px;
   margin: 0 auto;
   text-align: center;
+  color: var(--color-text-primary);
+  transition: color 0.4s ease;
 }
 
+/* Title */
 .services-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #4f46e5;
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: var(--color-primary);
   margin-bottom: 1rem;
+  font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 0.05em;
+  transition: color 0.4s ease;
 }
 
+body.dark-mode .services-title {
+  color: var(--color-primary);
+}
+
+/* Description */
 .services-description {
-  font-size: 1.15rem;
-  color: #4b5563;
+  font-size: 1.2rem;
+  color: var(--color-text-secondary);
   margin-bottom: 3rem;
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
   line-height: 1.7;
+  font-weight: 500;
+  transition: color 0.4s ease;
 }
 
-/* Grid layout: 3 on top, 3 on bottom */
+/* Grid layout */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  gap: 2.5rem;
   padding: 0 1rem;
+  transition: all 0.3s ease;
 }
 
 @media (max-width: 900px) {
@@ -46,49 +90,61 @@
   }
 }
 
+/* Service box */
 .service-box {
-  background: #f9fafb;
-  border-radius: 1.25rem;
-  padding: 2rem;
+  background: var(--color-card-bg);
+  border-radius: 1.5rem;
+  padding: 2.5rem 2rem;
   text-align: center;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+  box-shadow: 0 6px 16px var(--color-shadow-dark);
+  transition: all var(--transition-speed) ease;
   animation: fadeInUp 0.6s ease forwards;
   opacity: 0;
   transform: translateY(20px);
+  cursor: default;
+  will-change: transform, box-shadow;
 }
 
-.service-box:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 12px 24px rgba(79, 70, 229, 0.15);
-  background-color: #ffffff;
+.service-box:hover,
+.service-box:focus-within {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 12px 28px var(--color-shadow-light);
+  background-color: var(--color-hover-bg);
+  outline: none;
 }
 
+/* Icon styles */
 .service-icon {
-  font-size: 2.8rem;
-  margin-bottom: 1rem;
-  color: #4f46e5;
-  transition: color 0.3s;
+  font-size: 3rem;
+  margin-bottom: 1.25rem;
+  color: var(--color-icon);
+  transition: color var(--transition-speed);
 }
 
 .service-box:hover .service-icon {
-  color: #6366f1;
+  color: var(--color-icon-hover);
 }
 
+/* Service title */
 .service-title {
-  font-size: 1.25rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  color: #1f2937;
-  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+  font-family: 'Poppins', sans-serif;
+  transition: color var(--transition-speed);
 }
 
+/* Service description */
 .service-desc {
-  color: #4b5563;
+  color: var(--color-text-secondary);
   font-size: 1rem;
   line-height: 1.6;
+  font-weight: 500;
+  transition: color var(--transition-speed);
 }
 
-/* Animations */
+/* Animation keyframes */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -97,5 +153,16 @@
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Responsive text adjustments */
+@media (max-width: 600px) {
+  .services-title {
+    font-size: 2rem;
+  }
+
+  .service-title {
+    font-size: 1.2rem;
   }
 }
