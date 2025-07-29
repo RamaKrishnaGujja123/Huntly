@@ -1,0 +1,121 @@
+.contact-section {
+  padding: 4rem 1.5rem;
+  background-color: #0f0f0f; /* Black background */
+  color: #f9fafb; /* Light text for contrast */
+}
+
+.contact-container {
+  max-width: 720px;
+  margin: 0 auto;
+  background-color: #1a1a1a; /* Dark card */
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  padding: 3rem 2rem;
+}
+
+.contact-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.contact-subtitle {
+  font-size: 1.1rem;
+  color: #d1d5db;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+@media (max-width: 600px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-input,
+.contact-textarea {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid #374151;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  color: #f1f5f9;
+  background-color: #111827;
+  transition: all 0.2s ease;
+}
+
+.contact-input::placeholder,
+.contact-textarea::placeholder {
+  color: #9ca3af;
+}
+
+.contact-input:focus,
+.contact-textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+.contact-textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-button {
+  background-color: #6366f1;
+  color: white;
+  padding: 0.9rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contact-button:hover {
+  background-color: #4338ca;
+}
+
+.contact-alt {
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+.contact-connect-label {
+  color: #d1d5db;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.contact-link {
+  color: #818cf8;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1.05rem;
+  transition: color 0.2s ease;
+}
+
+.contact-link:hover {
+  color: #a5b4fc;
+}

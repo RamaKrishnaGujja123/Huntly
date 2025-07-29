@@ -1,0 +1,164 @@
+.aboutus-section {
+  background: #fff;
+  padding: 4rem 1.5rem 3rem 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.aboutus-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #4f46e5;
+  margin-bottom: 1.5rem;
+}
+
+.aboutus-description {
+  font-size: 1.15rem;
+  color: #374151;
+  margin-bottom: 2.5rem;
+  line-height: 1.7;
+}
+
+/* Stats Row */
+.aboutus-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  margin: 2.5rem 0 0 0;
+}
+
+@media (min-width: 700px) {
+  .aboutus-stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.aboutus-stat-number {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #4f46e5;
+  margin-bottom: 0.3rem;
+  animation: fade-in 1s;
+  display: inline-block;
+}
+
+.aboutus-stat-suffix {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-left: 0.2rem;
+  color: #6366f1;
+}
+
+.aboutus-stat-label {
+  color: #6b7280;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Features Row */
+.aboutus-features {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem 0 2rem 0;
+}
+
+@media (min-width: 700px) {
+  .aboutus-features {
+    flex-direction: row;
+    gap: 2.5rem;
+  }
+}
+
+.aboutus-feature-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f5f7ff;
+  border-radius: 1.1rem;
+  box-shadow: 0 2px 8px rgba(79,70,229,0.07);
+  padding: 2rem 1.5rem;
+  min-width: 180px;
+}
+
+.feature-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.7rem;
+  color: #6366f1;
+}
+
+.aboutus-feature-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #4f46e5;
+  margin-bottom: 0.3rem;
+}
+
+.aboutus-feature-desc {
+  font-size: 1rem;
+  color: #374151;
+}
+
+/* Trusted Companies Marquee */
+.aboutus-trusted {
+  margin-top: 2.5rem;
+}
+
+.aboutus-trusted-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #4f46e5;
+  margin-bottom: 0.5rem;
+}
+
+.aboutus-trusted-desc {
+  color: #6366f1;
+  margin-bottom: 1.2rem;
+}
+
+.aboutus-trusted-logos {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  height: 3.5rem;
+}
+
+.marquee {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  height: 3.5rem;
+}
+
+.marquee-content {
+  display: flex;
+  gap: 1.3rem;
+  animation: marquee 12s linear infinite;
+  min-width: max-content;
+}
+
+.aboutus-company {
+  padding: 0.7rem 1.5rem;
+  border-radius: 1rem;
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  box-shadow: 0 2px 8px rgba(79,70,229,0.12);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+@keyframes marquee {
+  0% { transform: translateX(100%);}
+  100% { transform: translateX(-100%);}
+}

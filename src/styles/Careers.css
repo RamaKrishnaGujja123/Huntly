@@ -1,0 +1,138 @@
+.careers-section {
+  background-color: #ffffff;
+  padding: 4rem 1.5rem;
+}
+
+.careers-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.careers-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #4f46e5;
+  margin-bottom: 0.5rem;
+}
+
+.careers-description {
+  font-size: 1.15rem;
+  color: #4b5563;
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+.careers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+@media (max-width: 900px) {
+  .careers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .careers-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.career-box {
+  background: #f9fafb;
+  border-radius: 1.25rem;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.career-box:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 12px 24px rgba(79, 70, 229, 0.15);
+  background-color: #ffffff;
+}
+
+.career-icon {
+  font-size: 2.5rem;
+  color: #4f46e5;
+  margin-bottom: 1rem;
+  transition: color 0.3s;
+}
+
+.career-box:hover .career-icon {
+  color: #6366f1;
+}
+
+.career-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.3rem;
+}
+
+.career-type {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #6366f1;
+  margin-bottom: 0.5rem;
+}
+
+.career-desc {
+  font-size: 1rem;
+  color: #4b5563;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.career-location {
+  font-size: 0.95rem;
+  color: #6b7280;
+  margin-bottom: 1rem;
+}
+
+.career-apply-btn {
+  background-color: #4f46e5;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.career-apply-btn:hover {
+  background-color: #4338ca;
+}
+
+.career-apply-btn.alt {
+  margin-top: 1rem;
+  background-color: #6366f1;
+}
+
+.careers-footer {
+  margin-top: 3rem;
+  color: #4b5563;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
