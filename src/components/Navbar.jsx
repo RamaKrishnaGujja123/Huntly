@@ -1,33 +1,57 @@
-import React from "react";
-import "../styles/Navbar.css"; // Assuming you have a CSS file for styles
+import React, { useState } from "react";
+import "../styles/Navbar.css";
 
 const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const closeMenu = () => setMenuOpen(false);
+
   return (
-    <nav className="fixed top-0 left-0 w-full bg-white shadow z-50">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
+    <nav>
+      <div className="nav-inner">
         {/* Logo */}
-        <div className="font-bold text-2xl text-indigo-700 tracking-tight">
-          HuntlyTech
+        <div className="font-bold">HuntlyTech</div>
+
+        {/* Hamburger Button */}
+        <button
+          className="hamburger-btn"
+          onClick={toggleMenu}
+          aria-label="Toggle navigation"
+          aria-expanded={menuOpen}
+        >
+          <span className={`bar ${menuOpen ? "open" : ""}`}></span>
+          <span className={`bar ${menuOpen ? "open" : ""}`}></span>
+          <span className={`bar ${menuOpen ? "open" : ""}`}></span>
+        </button>
+
+        {/* Desktop Menu */}
+        <div className="menu">
+          <a href="#hero">Home</a>
+          <a href="#aboutus">About Us</a>
+          <a href="#services">Services</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#careers">Careers</a>
+          <a href="#blog">Blog</a>
+          <a href="#contact">Contact</a>
         </div>
-        {/* Menu */}
-        <div className="hidden md:flex gap-6">
-          <a href="#hero" className="hover:text-indigo-600 font-medium">Home</a>
-          <a href="#aboutus" className="hover:text-indigo-600 font-medium">About Us</a>
-          <a href="#services" className="hover:text-indigo-600 font-medium">Services</a>
-          <a href="#portfolio" className="hover:text-indigo-600 font-medium">Portfolio</a>
-          <a href="#careers" className="hover:text-indigo-600 font-medium">Careers</a>
-          <a href="#blog" className="hover:text-indigo-600 font-medium">Blog</a>
-          <a href="#contact" className="hover:text-indigo-600 font-medium">Contact</a>
+
+        {/* Desktop Buttons */}
+        <div className="actions">
+          <button className="btn border">Sign In</button>
+          <button className="btn bg-indigo-600">Get Started</button>
         </div>
-        {/* Actions */}
-        <div className="flex gap-2">
-          <button className="px-4 py-2 border border-indigo-600 rounded text-indigo-600 hover:bg-indigo-50 transition font-semibold">
-            Sign In
-          </button>
-          <button className="px-4 py-2 bg-indigo-600 text-white rounded font-semibold shadow hover:bg-indigo-700 transition">
-            Get Started
-          </button>
-        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <div className={`mobile-menu ${menuOpen ? "open" : ""}`}>
+        <a href="#hero" onClick={closeMenu}>Home</a>
+        <a href="#aboutus" onClick={closeMenu}>About Us</a>
+        <a href="#services" onClick={closeMenu}>Services</a>
+        <a href="#portfolio" onClick={closeMenu}>Portfolio</a>
+        <a href="#careers" onClick={closeMenu}>Careers</a>
+        <a href="#blog" onClick={closeMenu}>Blog</a>
+        <a href="#contact" onClick={closeMenu}>Contact</a>
       </div>
     </nav>
   );
