@@ -41,6 +41,7 @@ nav > div {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: nowrap;
 }
 
 /* Logo styling */
@@ -63,7 +64,7 @@ nav .font-bold:focus {
   border-radius: 4px;
 }
 
-/* Menu styles */
+/* Desktop Menu (hidden on mobile) */
 nav .hidden.md\\:flex {
   display: none;
 }
@@ -71,7 +72,7 @@ nav .hidden.md\\:flex {
 @media (min-width: 768px) {
   nav .hidden.md\\:flex {
     display: flex;
-    gap: 3.5rem; /* Increased gap between menu items */
+    gap: 3.5rem;
   }
 }
 
@@ -82,7 +83,7 @@ nav a {
   font-weight: 600;
   font-size: 1rem;
   position: relative;
-  padding: 0.25rem 0.75rem; /* Added horizontal padding */
+  padding: 0.25rem 0.75rem;
   user-select: none;
   transition: color 0.3s ease, background-color 0.3s ease;
   letter-spacing: 0.03em;
@@ -108,7 +109,7 @@ nav a:focus {
   color: var(--color-primary);
   outline-offset: 3px;
   outline: 2px solid var(--color-primary);
-  background-color: rgba(92, 62, 189, 0.1); /* Subtle hover bg */
+  background-color: rgba(92, 62, 189, 0.1);
 }
 
 nav a:hover::after,
@@ -119,12 +120,14 @@ nav a:focus::after {
 
 /* Action buttons container */
 nav .flex.gap-2 {
-  gap: 1.5rem; /* More gap between buttons */
+  gap: 1.5rem;
+  display: flex;
+  align-items: center;
 }
 
 /* Buttons base style */
 nav button {
-  min-width: 120px; /* Uniform width */
+  min-width: 120px;
   font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
@@ -169,10 +172,52 @@ nav button.bg-indigo-600:focus {
   box-shadow: 0 8px 24px rgba(72, 48, 169, 0.5);
 }
 
-/* Responsive padding */
+/* Responsive adjustments for mobile */
 @media (max-width: 767px) {
   nav > div {
     padding: 0 1rem;
+    height: auto;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Show menu and stack vertically */
+  nav .hidden.md\\:flex {
+    display: flex !important;
+    flex-direction: column;
+    width: 100%;
+    gap: 1.25rem;
+    margin-top: 0.75rem;
+  }
+
+  /* Full width links with padding for tap targets */
+  nav a {
+    padding: 1rem 1rem;
+    width: 100%;
+    font-size: 1.1rem;
+    border-radius: 8px;
+  }
+
+  nav a:hover,
+  nav a:focus {
+    background-color: rgba(92, 62, 189, 0.15);
+  }
+
+  /* Stack action buttons vertically */
+  nav .flex.gap-2 {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  nav button {
+    width: 100%;
+    min-width: unset;
+    padding: 1rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
   }
 }
 
