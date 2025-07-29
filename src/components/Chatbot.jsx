@@ -2,85 +2,146 @@ import React, { useState, useRef, useEffect } from "react";
 
 const Chatbot = () => {
   const [chatOpen, setChatOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    { sender: "bot", text: "Hi! I'm your HuntlyTech assistant. How can I help you today?" }
-  ]);
+  const [messages, setMessages] = useState(() => {
+    const stored = localStorage.getItem("huntlyChat");
+    return stored
+      ? JSON.parse(stored)
+      : [
+          {
+            sender: "bot",
+            text: "👋 Hi there! I'm HuntlyTech Assistant. How can I help you today?",
+            time: new Date().toLocaleTimeString(),
+          },
+        ];
+  });
   const [input, setInput] = useState("");
-  const messagesEndRef = useRef(null);
+  const [typing, setTyping] = useState(false);
 
-  // Scroll to bottom when messages change
+  const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
+
+  // Auto-scroll on new messages
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    localStorage.setItem("huntlyChat", JSON.stringify(messages));
   }, [messages]);
 
+  // Auto-focus input on open
+  useEffect(() => {
+    if (chatOpen) inputRef.current?.focus();
+  }, [chatOpen]);
+
+  // Escape key closes chat
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.key === "Escape") setChatOpen(false);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, []);
+
   const toggleChat = () => {
-    setChatOpen(!chatOpen);
+    setChatOpen((prev) => !prev);
   };
 
   const sendMessage = () => {
     const trimmed = input.trim();
     if (!trimmed) return;
-    
-    setMessages((prev) => [...prev, { sender: "user", text: trimmed }]);
+
+    const userMessage = {
+      sender: "user",
+      text: trimmed,
+      time: new Date().toLocaleTimeString(),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
     setInput("");
+    setTyping(true);
 
     setTimeout(() => {
-      const response = getBotResponse(trimmed);
-      setMessages((prev) => [...prev, { sender: "bot", text: response }]);
-    }, 800);
+      const botReply = {
+        sender: "bot",
+        text: getBotResponse(trimmed),
+        time: new Date().toLocaleTimeString(),
+      };
+      setMessages((prev) => [...prev, botReply]);
+      setTyping(false);
+    }, 1000);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") sendMessage();
   };
 
   const getBotResponse = (msg) => {
     const text = msg.toLowerCase();
 
-    if (text.includes("price") || text.includes("cost") || text.includes("pricing")) {
-      return "Our plans start at $29/month for Starter. We also offer Professional ($79/month) and Enterprise (custom pricing). Want details?";
-    }
-    if (text.includes("feature") || text.includes("capability")) {
-      return "We provide AI-powered matching, automated screening, analytics dashboard, team collaboration & enterprise security.";
-    }
-    if (text.includes("demo") || text.includes("trial") || text.includes("try")) {
-      return "You can start a free trial or schedule a demo from our homepage!";
-    }
-    if (text.includes("hello") || text.includes("hi") || text.includes("hey")) {
-      return "Hello! How can I assist you with HuntlyTech today?";
-    }
-    if (text.includes("support") || text.includes("help") || text.includes("contact")) {
-      return "Contact our support team via email or the contact form on the website.";
-    }
+    if (text.includes("hi") || text.includes("hello") || text.includes("hey"))
+      return "Hello! 😊 How can I assist you with HuntlyTech today?";
 
-    return "Thanks for your message! Ask me about pricing, features, demos, or support.";
-  };
+    if (text.includes("pricing") || text.includes("price") || text.includes("cost"))
+      return "💸 Our Starter plan is $29/month. Pro is $79/month. Enterprise pricing is custom.";
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      sendMessage();
-    }
+    if (text.includes("feature") || text.includes("capabilities"))
+      return "✨ We offer AI job matching, automated resume parsing, team collaboration tools, and analytics dashboards.";
+
+    if (text.includes("trial") || text.includes("demo"))
+      return "🚀 You can start a free trial anytime or book a live demo on our homepage.";
+
+    if (text.includes("contact") || text.includes("support") || text.includes("help"))
+      return "📬 You can reach support via the contact form or email: support@huntlytech.com";
+
+    if (text.includes("job") || text.includes("career"))
+      return "👩‍💻 We’re hiring! Check our Careers page to explore open roles.";
+
+    if (text.includes("about") || text.includes("company"))
+      return "🏢 HuntlyTech is a next-gen hiring automation platform for modern teams.";
+
+    if (text.includes("team") || text.includes("employees"))
+      return "👥 We're a growing team of passionate engineers, designers, and hiring experts.";
+
+    if (text.includes("location") || text.includes("office"))
+      return "🌎 We’re a remote-first company with headquarters in New York City.";
+
+    if (text.includes("thanks") || text.includes("thank you"))
+      return "You're welcome! Let me know if you have any more questions 😊";
+
+    return "🤖 I'm still learning. Try asking about pricing, features, jobs, or support!";
   };
 
   return (
-    <div style={{ position: "fixed", bottom: 20, right: 20, maxWidth: 320, fontFamily: "'Inter', sans-serif", zIndex: 9999 }}>
+    <div
+      style={{
+        position: "fixed",
+        bottom: 20,
+        right: 20,
+        maxWidth: 360,
+        fontFamily: "'Inter', sans-serif",
+        zIndex: 9999,
+      }}
+    >
       {chatOpen ? (
         <div
+          role="dialog"
+          aria-label="HuntlyTech Chatbot"
           style={{
             display: "flex",
             flexDirection: "column",
+            height: "70vh",
+            backgroundColor: "#fff",
             borderRadius: 12,
-            boxShadow: "0 0 12px rgba(99, 102, 241, 0.5)",
+            boxShadow: "0 0 15px rgba(0,0,0,0.2)",
             overflow: "hidden",
-            backgroundColor: "white",
-            height: 400,
-            width: "100%",
+            transition: "all 0.3s ease",
           }}
-          aria-label="Chat window"
         >
+          {/* Header */}
           <div
             style={{
               backgroundColor: "#6366f1",
               color: "#fff",
               padding: 12,
-              fontWeight: 600,
+              fontWeight: "600",
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
@@ -89,63 +150,95 @@ const Chatbot = () => {
             HuntlyTech Assistant
             <button
               onClick={toggleChat}
-              style={{ background: "transparent", border: "none", cursor: "pointer", color: "#fff", fontSize: 18 }}
               aria-label="Close chat"
+              style={{
+                background: "transparent",
+                border: "none",
+                color: "#fff",
+                fontSize: 18,
+                cursor: "pointer",
+              }}
             >
               ✕
             </button>
           </div>
+
+          {/* Messages */}
           <div
-            id="chatMessages"
+            role="region"
+            aria-label="Messages"
             style={{
-              background: "#f9fafb",
-              padding: 12,
               flex: 1,
+              padding: "12px",
+              background: "#f9fafb",
               overflowY: "auto",
               display: "flex",
               flexDirection: "column",
-              gap: 8,
-              color: "#111827",
+              gap: "10px",
             }}
           >
-            {messages.map((msg, i) => (
+            {messages.map((msg, idx) => (
               <div
-                key={i}
+                key={idx}
                 style={{
-                  maxWidth: "80%",
+                  alignSelf: msg.sender === "user" ? "flex-end" : "flex-start",
+                  backgroundColor: msg.sender === "user" ? "#6366f1" : "#e0e7ff",
+                  color: msg.sender === "user" ? "#fff" : "#1e293b",
                   padding: "8px 12px",
                   borderRadius: 12,
-                  marginBottom: 8,
-                  wordWrap: "break-word",
-                  alignSelf: msg.sender === "bot" ? "flex-start" : "flex-end",
-                  backgroundColor: msg.sender === "bot" ? "#e0e7ff" : "#6366f1",
-                  color: msg.sender === "bot" ? "#1e293b" : "#fff",
+                  maxWidth: "80%",
+                  wordBreak: "break-word",
                 }}
               >
                 {msg.text}
+                <div
+                  style={{
+                    fontSize: "0.7rem",
+                    marginTop: 4,
+                    opacity: 0.5,
+                    textAlign: "right",
+                  }}
+                >
+                  {msg.time}
+                </div>
               </div>
             ))}
+            {typing && (
+              <div style={{ fontStyle: "italic", fontSize: "0.9rem", color: "#666" }}>
+                Assistant is typing...
+              </div>
+            )}
             <div ref={messagesEndRef} />
           </div>
-          <div style={{ display: "flex", padding: 12, borderTop: "1px solid #ddd", gap: 8 }}>
+
+          {/* Input */}
+          <div
+            style={{
+              padding: "12px",
+              display: "flex",
+              gap: "8px",
+              borderTop: "1px solid #ddd",
+            }}
+          >
             <input
+              ref={inputRef}
               type="text"
-              aria-label="Chat input"
-              placeholder="Type your message..."
+              placeholder="Type a message..."
+              aria-label="Type your message"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               style={{
                 flex: 1,
-                padding: 8,
-                borderRadius: 8,
+                padding: "8px",
+                borderRadius: "8px",
                 border: "1px solid #ccc",
                 fontSize: "1rem",
               }}
             />
             <button
               onClick={sendMessage}
-              aria-label="Send message"
+              aria-label="Send"
               style={{
                 backgroundColor: "#6366f1",
                 color: "#fff",
@@ -153,6 +246,7 @@ const Chatbot = () => {
                 borderRadius: 8,
                 padding: "8px 16px",
                 cursor: "pointer",
+                fontWeight: 600,
               }}
             >
               Send
@@ -162,17 +256,17 @@ const Chatbot = () => {
       ) : (
         <button
           onClick={toggleChat}
-          aria-label="Open chat"
+          aria-label="Open chatbot"
           style={{
             width: 56,
             height: 56,
             borderRadius: "50%",
             backgroundColor: "#6366f1",
-            border: "none",
             color: "white",
+            border: "none",
             cursor: "pointer",
-            boxShadow: "0 4px 10px rgba(99, 102, 241, 0.5)",
             fontSize: 24,
+            boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
           }}
         >
           💬
